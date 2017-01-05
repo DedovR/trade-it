@@ -4,7 +4,7 @@ require 'multi_json'
 require 'yajl/json_gem'
 require 'virtus'
 require 'httparty'
-require 'trading'
+# require 'trading'
 
 module TradeIt
   autoload :Base, 'trade_it/base'
@@ -12,6 +12,7 @@ module TradeIt
   autoload :Positions, 'trade_it/positions'
   autoload :Order, 'trade_it/order'
   autoload :Instrument, 'trade_it/instrument'
+  autoload :Errors, 'trade_it/errors'
 
   class << self
     attr_writer :logger, :api_uri, :api_key, :price_service_url

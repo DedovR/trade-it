@@ -8,16 +8,17 @@ module TradeIt
       end
 
       def call
-        uri =  URI.join(TradeIt.api_uri, 'v1/user/oAuthLink').to_s
+        uri  = URI.join(TradeIt.api_uri, 'api/v1/user/oAuthLink')
         body = {
           id: username,
           password: password,
           broker: TradeIt.brokers[broker],
           apiKey: TradeIt.api_key
         }
-        result = HTTParty.post(uri.to_s, body: body, format: :json)
+        result = Net::HTTP.post_form(uri, body)
+        result = JSON(result.body)
 
-        if result['status'] == 'SUCCESS'
+        if 'SUCCESS' == result['status']
           self.response = TradeIt::Base::Response.new(raw: result,
                                                       status: 200,
                                                       payload: {
@@ -27,7 +28,7 @@ module TradeIt
                                                       },
                                                       messages: [result['shortMessage']].compact)
         else
-          raise Trading::Errors::LoginException.new(
+          raise TradeIt::Errors::LoginException.new(
             type: :error,
             code: result['code'],
             description: result['shortMessage'],
@@ -35,7 +36,7 @@ module TradeIt
           )
         end
         # pp response.to_h
-        TradeIt.logger.info response.to_h
+        # TradeIt.logger.info response.to_h
         self
       end
     end

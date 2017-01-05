@@ -7,7 +7,7 @@ module TradeIt
       end
 
       def call
-        uri =  URI.join(TradeIt.api_uri, 'v1/user/authenticate').to_s
+        uri =  URI.join(TradeIt.api_uri, 'api/v1/user/authenticate')
 
         body = {
           userId: user_id,
@@ -15,11 +15,13 @@ module TradeIt
           apiKey: TradeIt.api_key
         }
 
-        result = HTTParty.post(uri.to_s, body: body, format: :json)
+        result = Net::HTTP.post_form(uri, body)
+        date   = Time.parse(result['Date']).to_i
+        result = JSON(result.body)
 
-        self.response = TradeIt::User.parse_result(result)
+        self.response = TradeIt::User.parse_result(result, date)
 
-        TradeIt.logger.info response.to_h
+        # TradeIt.logger.info response.to_h
         self
       end
     end

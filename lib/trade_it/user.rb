@@ -15,7 +15,7 @@ module TradeIt
       #
       # Parse a Tradeit Login or Verify response into our format
       #
-      def parse_result(result)
+      def parse_result(result, date = nil)
         if result['status'] == 'SUCCESS'
           #
           # User logged in without any security questions
@@ -57,7 +57,8 @@ module TradeIt
                                                    type: 'verify',
                                                    challenge: result['challengeImage'] ? 'image' : 'question',
                                                    token: result['token'],
-                                                   data: data
+                                                   srv: date,
+                                                   data: data,
                                                  },
                                                  messages: [result['shortMessage']].compact)
         else
