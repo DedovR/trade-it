@@ -12,6 +12,7 @@ module TradeIt
   autoload :Positions, 'trade_it/positions'
   autoload :Order, 'trade_it/order'
   autoload :Instrument, 'trade_it/instrument'
+  autoload :Broker, 'trade_it/broker'
   autoload :Errors, 'trade_it/errors'
 
   class << self

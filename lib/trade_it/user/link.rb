@@ -12,7 +12,7 @@ module TradeIt
         body = {
           id: username,
           password: password,
-          broker: TradeIt.brokers[broker],
+          broker: broker,
           apiKey: TradeIt.api_key
         }
         result = Net::HTTP.post_form(uri, body)
