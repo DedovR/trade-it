@@ -13,6 +13,7 @@ module TradeIt
   autoload :Order, 'trade_it/order'
   autoload :Instrument, 'trade_it/instrument'
   autoload :Broker, 'trade_it/broker'
+  autoload :Account, 'trade_it/account'
   autoload :Errors, 'trade_it/errors'
 
   class << self

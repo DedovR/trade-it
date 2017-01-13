@@ -1,19 +1,17 @@
 module TradeIt
-  module Positions
-    class Get < TradeIt::Base
+  module Account
+    class TransactionsHistory < TradeIt::Base
       values do
         attribute :token, String
         attribute :account_number, String
-        attribute :page, Integer, default: 0
       end
 
       def call
-        uri =  URI.join(TradeIt.api_uri, 'api/v1/position/getPositions')
+        uri =  URI.join(TradeIt.api_uri, 'api/v1/position/getAllTransactionsHistory')
 
         body = {
           token: token,
           accountNumber: account_number,
-          page: page,
           apiKey: TradeIt.api_key
         }
 

@@ -7,7 +7,7 @@ module TradeIt
       end
 
       def call
-        uri =  URI.join(TradeIt.api_uri, 'v1/balance/getAccountOverview').to_s
+        uri =  URI.join(TradeIt.api_uri, 'api/v1/balance/getAccountOverview')
 
         body = {
           token: token,
@@ -15,7 +15,9 @@ module TradeIt
           apiKey: TradeIt.api_key
         }
 
-        result = HTTParty.post(uri.to_s, body: body, format: :json)
+        result = Net::HTTP.post_form(uri, body)
+        result = JSON(result.body)
+
         if result['status'] == 'SUCCESS'
           payload = {
             type: 'success',
@@ -46,7 +48,6 @@ module TradeIt
             messages: result['longMessages']
           )
         end
-        TradeIt.logger.info response.to_h
         self
       end
 
