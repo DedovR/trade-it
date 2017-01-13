@@ -10,16 +10,6 @@ module TradeIt
         attribute :description, String
         attribute :messages, Array[String]
       end
-
-      def initialize(*args)
-        super
-        log
-      end
-
-      def log
-        pp(to_h)
-        TradeIt.logger.error to_h
-      end
     end
 
     class LoginException < TradeItException
