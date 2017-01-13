@@ -137,7 +137,7 @@ module TradeIt
       if @api_uri
         return @api_uri
       else
-        raise Trading::Errors::ConfigException.new(
+        raise TradeIt::Errors::ConfigException.new(
           type: :error,
           code: 500,
           description: 'api_uri missing',
@@ -150,7 +150,7 @@ module TradeIt
       if @api_key
         return @api_key
       else
-        raise Trading::Errors::ConfigException.new(
+        raise TradeIt::Errors::ConfigException.new(
           type: :error,
           code: 500,
           description: 'api_key missing',
@@ -163,7 +163,7 @@ module TradeIt
       if @price_service_url
         return @price_service_url
       else
-        raise Trading::Errors::ConfigException.new(
+        raise TradeIt::Errors::ConfigException.new(
           type: :error,
           code: 500,
           description: 'price_service_url missing',

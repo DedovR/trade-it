@@ -44,7 +44,7 @@ describe TradeIt::Instrument::Details do
   describe 'bad tiocker' do
     let(:ticker) { 'foooooobaaarrrr' }
     it 'throws error' do
-      expect { subject }.to raise_error(Trading::Errors::OrderException)
+      expect { subject }.to raise_error(TradeIt::Errors::OrderException)
     end
   end
 

@@ -46,7 +46,7 @@ module TradeIt
           #
           # Order failed
           #
-          raise Trading::Errors::OrderException.new(
+          raise TradeIt::Errors::OrderException.new(
             type: :error,
             code: result['code'],
             description: result['shortMessage'],

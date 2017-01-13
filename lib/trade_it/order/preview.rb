@@ -17,7 +17,7 @@ module TradeIt
       def call
         # Tradeit does not support order amounts
         if amount && amount != 0.0
-          raise Trading::Errors::OrderException.new(
+          raise TradeIt::Errors::OrderException.new(
             type: :error,
             code: 500,
             description: 'Amount is not supported',
@@ -78,7 +78,7 @@ module TradeIt
           #
           # Order failed
           #
-          raise Trading::Errors::OrderException.new(
+          raise TradeIt::Errors::OrderException.new(
             type: :error,
             code: result['code'],
             description: result['shortMessage'],
