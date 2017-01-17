@@ -18,9 +18,10 @@ module TradeIt
         }
 
         result = Net::HTTP.post_form(uri, body)
+        date   = Time.parse(result['Date']).to_i
         result = JSON(result.body)
 
-        self.response = TradeIt::User.parse_result(result)
+        self.response = TradeIt::User.parse_result(result, date)
 
         # TradeIt.logger.info response.to_h
         self
