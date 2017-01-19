@@ -7,7 +7,7 @@ module TradeIt
       end
 
       def call
-        uri =  URI.join(TradeIt.api_uri, 'api/v1/position/getAllTransactionsHistory')
+        uri =  URI.join(TradeIt.api_uri, 'api/v1/account/getAllTransactionsHistory')
 
         body = {
           token: token,
@@ -17,7 +17,7 @@ module TradeIt
 
         result = execute(uri, body)
 
-        self.response = TradeIt::Positions.parse_result(result)
+        self.response = TradeIt::Account.parse_result(result)
         self
       end
     end

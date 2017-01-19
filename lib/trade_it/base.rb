@@ -65,6 +65,25 @@ module TradeIt
       end
     end
 
+    #
+    # A Transaction held of a single instrument
+    #
+    class Transaction
+      include Virtus.value_object(coerce: true)
+      values do
+        attribute :action, String
+        attribute :amount, Float
+        attribute :commission, Float
+        attribute :date, String
+        attribute :description, String
+        attribute :id, String
+        attribute :price, Float
+        attribute :quantity, Integer
+        attribute :symbol, String
+        attribute :type, String
+      end
+    end
+
     values do
       attribute :response, Response
     end
