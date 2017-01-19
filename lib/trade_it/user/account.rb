@@ -15,9 +15,9 @@ module TradeIt
           apiKey: TradeIt.api_key
         }
 
-        result = Net::HTTP.post_form(uri, body)
-        result = JSON(result.body)
-
+        req_result = execute(uri, body)
+        result     = JSON(req_result.body)
+        
         if result['status'] == 'SUCCESS'
           payload = {
             type: 'success',

@@ -17,8 +17,7 @@ module TradeIt
           apiKey: TradeIt.api_key
         }
 
-        result = Net::HTTP.post_form(uri, body)
-        result = JSON(result.body)
+        result = execute(uri, body)
 
         self.response = TradeIt::Positions.parse_result(result)
         self

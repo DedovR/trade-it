@@ -15,11 +15,9 @@ module TradeIt
           apiKey: TradeIt.api_key
         }
 
-        result = Net::HTTP.post_form(uri, body)
-        date   = Time.parse(result['Date']).to_i
-        result = JSON(result.body)
+        result = execute(uri, body)
 
-        self.response = TradeIt::User.parse_result(result, date)
+        self.response = TradeIt::User.parse_result(result)
 
         # TradeIt.logger.info response.to_h
         self

@@ -15,8 +15,7 @@ module TradeIt
           broker: broker,
           apiKey: TradeIt.api_key
         }
-        result = Net::HTTP.post_form(uri, body)
-        result = JSON(result.body)
+        result = JSON(execute(uri, body).body)
 
         if 'SUCCESS' == result['status']
           self.response = TradeIt::Base::Response.new(raw: result,

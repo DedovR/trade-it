@@ -6,17 +6,16 @@ module TradeIt
       end
 
       def call
-        uri =  URI.join(TradeIt.api_uri, 'v1/user/closeSession').to_s
+        uri =  URI.join(TradeIt.api_uri, 'api/v1/user/closeSession')
 
         body = {
           token: token,
           apiKey: TradeIt.api_key
         }
 
-        result = HTTParty.post(uri.to_s, body: body, format: :json)
+        result = execute(uri, body)
         self.response = TradeIt::User.parse_result(result)
 
-        TradeIt.logger.info response.to_h
         self
       end
     end

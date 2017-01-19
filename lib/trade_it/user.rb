@@ -15,7 +15,9 @@ module TradeIt
       #
       # Parse a Tradeit Login or Verify response into our format
       #
-      def parse_result(result, date = nil)
+      def parse_result(result)
+        date   = Time.parse(result['Date']).to_i
+        result = JSON(result.body)
         if result['status'] == 'SUCCESS'
           #
           # User logged in without any security questions

@@ -26,5 +26,8 @@ module TradeIt
 
     class OrderException < TradeItException
     end
+
+    class RequestException < TradeItException
+    end
   end
 end

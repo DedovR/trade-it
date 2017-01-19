@@ -68,5 +68,19 @@ module TradeIt
     values do
       attribute :response, Response
     end
+
+    def execute(uri, body)
+      result = Net::HTTP.post_form(uri, body)
+      if "200" == result.code
+        result
+      else
+        raise TradeIt::Errors::RequestException.new(
+          type: :error,
+          code: result.code,
+          description: "Request Error",
+          messages: result.body
+        )
+      end 
+    end 
   end
 end
