@@ -17,18 +17,18 @@ module TradeIt
 
         req_result = execute(uri, body)
         result     = JSON(req_result.body)
-        
         if result['status'] == 'SUCCESS'
           payload = {
             type: 'success',
             cash: result['availableCash'].to_f,
             power: result['buyingPower'].to_f,
             day_return: result['dayAbsoluteReturn'].to_f,
-            day_return_percent: result['dayPercentReturn'].to_f / 100.0 ,
+            day_return_percent: result['dayPercentReturn'].to_f,
             total_return: result['totalAbsoluteReturn'].to_f,
-            total_return_percent: result['totalPercentReturn'].to_f / 100.0,
+            total_return_percent: result['totalPercentReturn'].to_f,
             value: result['totalValue'].to_f,
-            token: result['token']
+            token: result['token'],
+            currency: result['accountBaseCurrency']
           }
 
           self.response = TradeIt::Base::Response.new(
