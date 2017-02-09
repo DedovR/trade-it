@@ -25,7 +25,7 @@ module TradeIt
           )
         end
 
-        uri =  URI.join(TradeIt.api_uri, 'v1/order/previewStockOrEtfOrder').to_s
+        uri =  URI.join(TradeIt.api_uri, 'api/v1/order/previewStockOrEtfOrder')
 
         body = {
           token: token,
@@ -41,7 +41,7 @@ module TradeIt
         body[:orderLimitPrice] = limit_price if price_type == :limit || price_type == :stop_limit
         body[:orderStopPrice] = stop_price if price_type == :stop_market || price_type == :stop_limit
 
-        result = HTTParty.post(uri.to_s, body: body, format: :json)
+        result = JSON(execute(uri, body).body)
         if result['status'] == 'REVIEW_ORDER'
           details = result['orderDetails']
           # binding.pry

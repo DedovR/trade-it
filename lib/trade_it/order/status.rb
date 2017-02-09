@@ -8,8 +8,8 @@ module TradeIt
       end
 
       def call
-        uri =  URI.join(TradeIt.api_uri, 'v1/order/getAllOrderStatus').to_s
-        uri =  URI.join(TradeIt.api_uri, 'v1/order/getSingleOrderStatus').to_s if order_number
+        uri =  URI.join(TradeIt.api_uri, 'api/v1/order/getAllOrderStatus')
+        uri =  URI.join(TradeIt.api_uri, 'api/v1/order/getSingleOrderStatus') if order_number
 
         body = {
           token: token,
@@ -19,7 +19,7 @@ module TradeIt
 
         body[:orderNumber] = order_number if order_number
 
-        result = HTTParty.post(uri.to_s, body: body, format: :json)
+        result = JSON(execute(uri, body).body)
         if result['status'] == 'SUCCESS'
 
           payload = {
