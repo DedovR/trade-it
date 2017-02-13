@@ -8,7 +8,7 @@ module TradeIt
       end
 
       def call
-        uri =  URI.join(TradeIt.api_uri, 'v1/order/cancelOrder').to_s
+        uri =  URI.join(TradeIt.api_uri, 'api/v1/order/cancelOrder')
 
         body = {
           token: token,
@@ -17,7 +17,7 @@ module TradeIt
           apiKey: TradeIt.api_key
         }
 
-        result = HTTParty.post(uri.to_s, body: body, format: :json)
+        result = JSON(execute(uri, body).body)
         if result['status'] == 'SUCCESS'
 
           payload = {
