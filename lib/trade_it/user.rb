@@ -10,6 +10,8 @@ module TradeIt
     autoload :Logout, 'trade_it/user/logout'
     autoload :Refresh, 'trade_it/user/refresh'
     autoload :Account, 'trade_it/user/account'
+    autoload :Unlink, 'trade_it/user/unlink'
+    autoload :Relink, 'trade_it/user/relink'
 
     class << self
       #
