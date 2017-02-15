@@ -10,6 +10,10 @@ module TradeIt
         attribute :description, String
         attribute :messages, Array[String]
       end
+      
+      def message
+        "#{type}\n#{code}\n#{broker_code}\n#{messages.join}\n#{description}"
+      end
     end
 
     class LoginException < TradeItException
