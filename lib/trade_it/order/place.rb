@@ -4,6 +4,7 @@ module TradeIt
       values do
         attribute :token, String
         attribute :price, Float
+        attribute :ip, String, :default => nil
       end
 
       def call
@@ -14,7 +15,7 @@ module TradeIt
           apiKey: TradeIt.api_key
         }
 
-        result = JSON(execute(uri, body).body)
+        result = JSON(execute(uri, body, ip).body)
         if result['status'] == 'SUCCESS'
           details = result['orderInfo']
           # binding.pry

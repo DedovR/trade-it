@@ -5,6 +5,7 @@ module TradeIt
         attribute :token, String
         attribute :account_number, String
         attribute :order_number, String
+        attribute :ip, String, :default => nil
       end
 
       def call
@@ -19,7 +20,7 @@ module TradeIt
 
         body[:orderNumber] = order_number if order_number
 
-        result = JSON(execute(uri, body).body)
+        result = JSON(execute(uri, body, ip).body)
         if result['status'] == 'SUCCESS'
 
           payload = {

@@ -4,6 +4,7 @@ module TradeIt
       values do
         attribute :token, String
         attribute :user_id, String
+        attribute :ip, String, :default => nil
       end
 
       def call
@@ -14,7 +15,7 @@ module TradeIt
           apiKey: TradeIt.api_key
         }
         byebug
-        result = JSON(execute(uri, body).body)
+        result = JSON(execute(uri, body, ip).body)
 
         if 'SUCCESS' == result['status']
           self.response = TradeIt::Base::Response.new(raw: result,

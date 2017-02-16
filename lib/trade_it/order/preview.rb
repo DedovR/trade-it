@@ -12,6 +12,7 @@ module TradeIt
         attribute :limit_price, Float
         attribute :stop_price, Float
         attribute :amount, Float
+        attribute :ip, String, :default => nil
       end
 
       def call
@@ -41,7 +42,7 @@ module TradeIt
         body[:orderLimitPrice] = limit_price if price_type == :limit || price_type == :stop_limit
         body[:orderStopPrice] = stop_price if price_type == :stop_market || price_type == :stop_limit
 
-        result = JSON(execute(uri, body).body)
+        result = JSON(execute(uri, body, ip).body)
         if result['status'] == 'REVIEW_ORDER'
           details = result['orderDetails']
           # binding.pry

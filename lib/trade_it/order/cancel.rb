@@ -5,6 +5,7 @@ module TradeIt
         attribute :token, String
         attribute :account_number, String
         attribute :order_number, String
+        attribute :ip, String, :default => nil
       end
 
       def call
@@ -17,7 +18,7 @@ module TradeIt
           apiKey: TradeIt.api_key
         }
 
-        result = JSON(execute(uri, body).body)
+        result = JSON(execute(uri, body, ip).body)
         if result['status'] == 'SUCCESS'
 
           payload = {
