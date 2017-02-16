@@ -92,6 +92,13 @@ module TradeIt
       result = Net::HTTP.post_form(uri, body)
       if "200" == result.code
         result
+      elsif "503" == result.code || "500" == result.code
+        raise TradeIt::Errors::ApiUnavailableException.new(
+          type: :error,
+          code: result.code,
+          description: "Request Error",
+          messages: "Service temporary unavailable"
+        )
       else
         raise TradeIt::Errors::RequestException.new(
           type: :error,
@@ -99,7 +106,7 @@ module TradeIt
           description: "Request Error",
           messages: result.body
         )
-      end 
-    end 
+      end
+    end
   end
 end
