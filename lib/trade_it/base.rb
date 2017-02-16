@@ -88,8 +88,14 @@ module TradeIt
       attribute :response, Response
     end
 
-    def execute(uri, body)
-      result = Net::HTTP.post_form(uri, body)
+    def execute(uri, body, ip = nil)
+      req = Net::HTTP::Post.new(uri.path)
+      req.set_form_data(body)
+      req['X-TradeIt-Client-IP'] = ip if ip.present?
+      result = Net::HTTP.start(uri.hostname, uri.port, :use_ssl => uri.scheme == 'https') do |http|
+        http.request(req)
+      end
+
       if "200" == result.code
         result
       else
@@ -99,7 +105,7 @@ module TradeIt
           description: "Request Error",
           messages: result.body
         )
-      end 
-    end 
+      end
+    end
   end
 end

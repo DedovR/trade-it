@@ -5,6 +5,7 @@ module TradeIt
         attribute :broker, Symbol
         attribute :username, String
         attribute :password, String
+        attribute :ip, String, :default => nil
       end
 
       def call
@@ -15,7 +16,7 @@ module TradeIt
           broker: broker,
           apiKey: TradeIt.api_key
         }
-        result = JSON(execute(uri, body).body)
+        result = JSON(execute(uri, body, ip).body)
 
         if 'SUCCESS' == result['status']
           self.response = TradeIt::Base::Response.new(raw: result,

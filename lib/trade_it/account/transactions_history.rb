@@ -4,6 +4,7 @@ module TradeIt
       values do
         attribute :token, String
         attribute :account_number, String
+        attribute :ip, String, :default => nil
       end
 
       def call
@@ -15,7 +16,7 @@ module TradeIt
           apiKey: TradeIt.api_key
         }
 
-        result = execute(uri, body)
+        result = execute(uri, body, ip)
 
         self.response = TradeIt::Account.parse_result(result)
         self
