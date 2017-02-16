@@ -13,7 +13,6 @@ module TradeIt
           userId: user_id,
           apiKey: TradeIt.api_key
         }
-        byebug
         result = JSON(execute(uri, body).body)
 
         if 'SUCCESS' == result['status']
