@@ -91,6 +91,14 @@ module TradeIt
     def execute(uri, body)
       result = Net::HTTP.post_form(uri, body)
       if "200" == result.code
+        if JSON.parse(result)['code'] == '600'
+          raise TradeIt::Errors::SessionExpiredException.new(
+            type: :error,
+            code: result.code,
+            description: "Session Expired Error",
+            messages: "Service session expired"
+          )
+        end
         result
       else
         raise TradeIt::Errors::RequestException.new(
@@ -99,7 +107,7 @@ module TradeIt
           description: "Request Error",
           messages: result.body
         )
-      end 
-    end 
+      end
+    end
   end
 end
